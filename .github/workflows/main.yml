@@ -16,9 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ======================================================
-      # هنا تم حل المشكلة بحذف cache: "npm"
-      # ======================================================
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,16 +43,23 @@ jobs:
           fi
           echo "✅ WOLF_TOKENS_PAT is available"
 
+          # ✅ تم تصحيح الرابط ليستخدم GitHub API بدل رابط الويب
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: token $WOLF_TOKENS_PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://github.com/Ana72932/Too/blob/main/token.json")
+            -H "User-Agent: wolf-bot" \
+            "https://api.github.com/repos/Ana72932/too/contents/token.json?ref=main")
 
           if [ "$STATUS" != "200" ]; then
-            echo "❌ Failed to access too/tokens.json: HTTP $STATUS"
+            echo "❌ Failed to access too/token.json: HTTP $STATUS"
+            echo "💡 تأكد من:"
+            echo "   1. أن المستودع Ana72932/too موجود"
+            echo "   2. أن الملف token.json موجود في المسار الجذري"
+            echo "   3. أن الفرع هو main"
+            echo "   4. أن التوكن يملك صلاحية Contents: Read على المستودع"
             exit 1
           fi
-          echo "✅ Access to too/tokens.json confirmed"
+          echo "✅ Access to too/token.json confirmed"
 
       - name: Run WOLF Event Task
         env:
@@ -63,7 +67,7 @@ jobs:
         run: |
           echo "========================================"
           echo "🐺 WOLF EVENT BOT"
-          echo "📦 Tokens from: anaayaar-ops/too"
+          echo "📦 Tokens from: Ana72932/too"
           echo "========================================"
           echo "🕐 Start: $(date)"
           echo "========================================"
