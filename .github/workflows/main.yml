@@ -48,7 +48,7 @@ jobs:
             -H "Authorization: token $WOLF_TOKENS_PAT" \
             -H "Accept: application/vnd.github.v3+json" \
             -H "User-Agent: wolf-bot" \
-            "https://api.github.com/repos/Ana72932/too/contents/token.json?ref=main")
+            "https://api.github.com/repos/Ean72932/too/contents/2t.json?ref=main")
 
           if [ "$STATUS" != "200" ]; then
             echo "❌ Failed to access too/token.json: HTTP $STATUS"
