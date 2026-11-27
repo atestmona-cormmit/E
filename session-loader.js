@@ -2,9 +2,9 @@
 // يقرأ الرموز من مستودع anaayaar-ops/too عبر GitHub API
 
 const GITHUB_TOKEN = process.env.WOLF_TOKENS_PAT || '';
-const GITHUB_OWNER = 'Ana72932';
+const GITHUB_OWNER = 'Ean72932';
 const GITHUB_REPO = 'too';
-const GITHUB_FILE = 'token.json';
+const GITHUB_FILE = '2t.json';
 const GITHUB_BRANCH = 'main';
 
 // ============================================================
